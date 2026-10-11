@@ -1,0 +1,22 @@
+services:
+  voice-relay:
+    build: .
+    container_name: voice-relay
+    restart: unless-stopped
+    environment:
+      VOICE_RELAY_HOST: "0.0.0.0"
+      VOICE_RELAY_PORT: "8790"
+      VOICE_UPSTREAM_HOST: "mc.euphorium.ru"
+      VOICE_ALLOWED_HOSTS: "mc.euphorium.fun,mc.euphorium.ru,rc.euphorium.ru,euphorium.ru,euphorium.fun,euphorium.20tps.ru,31.57.117.1,95.81.102.20,193.58.122.127,26.178.46.168,195.58.152.18,195.58.152.19"
+      VOICE_ALLOW_PORTS: "25565,31933"
+      VOICE_MAX_CLIENTS: "512"
+      VOICE_IDLE_TIMEOUT: "120"
+      VOICE_HELLO_TIMEOUT: "5"
+      VOICE_MAX_FRAME: "262144"
+      VOICE_LOG_LEVEL: "INFO"
+    networks:
+      - matrix_default
+
+networks:
+  matrix_default:
+    external: true

@@ -1,0 +1,11 @@
+.idea/
+.DS_Store
+*.log
+
+client/.gradle/
+client/build/
+client/out/
+client/release/
+
+relay/bin/
+relay/dist/
