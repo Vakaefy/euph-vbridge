@@ -1,30 +1,40 @@
-# Euph-VBridge
+<div align="center">
+  <img src="icon.png" alt="Euph-VBridge" width="150">
+  <h1>Euph-VBridge</h1>
+  <p>Клиентский аддон Plasmo Voice для Euphorium</p>
+</div>
 
-Клиентский аддон для Plasmo Voice, который прокладывает голосовой трафик Euphorium через WebSocket-релей.
-
-На остальных серверах Plasmo Voice работает штатно. Если релей недоступен, аддон возвращается к прямому UDP-подключению.
+Euph-VBridge направляет голосовой трафик Euphorium через WebSocket-релей и оставляет остальные серверы без изменений.
 
 ## Установка
 
 1. Установите Plasmo Voice под свой загрузчик Minecraft.
-2. Скачайте `euph-vbridge-1.0.0.jar` из GitHub Releases или Modrinth.
-3. Положите JAR-файл в папку `mods`.
+2. Скачайте `euph-vbridge-1.0.0.jar`.
+3. Положите файл в папку `mods`.
 4. Подключитесь к Euphorium.
 
-Аддон рассчитан на клиентскую сторону и собирается единым JAR для Fabric и NeoForge.
+Аддон работает на клиентской стороне. Поддерживаются Fabric и NeoForge.
+
+## Поведение
+
+- Для адресов Euphorium используется `wss://voice.femboyhouse.ru/voice`.
+- Остальные серверы используют обычное подключение Plasmo Voice.
+- При сбое релея клиент возвращается к прямому UDP.
 
 ## Сборка
+
+Нужен JDK 25.
 
 ```bash
 ./gradlew build
 ```
 
-Артефакт появится в `build/libs/euph-vbridge-1.0.0.jar`.
+JAR появится в `build/libs/euph-vbridge-1.0.0.jar`.
 
-## Связанный релей
+## Связанный проект
 
-Серверная часть находится в каталоге [`relay`](../relay) общего репозитория Euph-VBridge.
+Серверная часть находится в [`../relay`](../relay).
 
 ## Лицензия
 
-MIT. Исходный код распространяется в [`LICENSE`](LICENSE).
+MIT. Подробности находятся в [`LICENSE`](LICENSE).

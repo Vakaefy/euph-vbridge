@@ -1,8 +1,10 @@
-# Relay Euph-VBridge
+<div align="center">
+  <img src="../client/icon.png" alt="Euph-VBridge" width="150">
+  <h1>Euph-VBridge Relay</h1>
+  <p>UDP-over-WebSocket relay для голосового чата Euphorium</p>
+</div>
 
-Небольшой UDP-over-WebSocket relay для клиентского аддона Euph-VBridge.
-
-Релей принимает WebSocket на порту `8790`, проверяет приветствие `PVW2`, разрешает только адреса Euphorium и передаёт голосовые UDP-пакеты к Minecraft-серверу.
+Relay принимает WebSocket-подключения, проверяет приветствие `PVW2` и передаёт голосовые UDP-пакеты к разрешённым Minecraft-адресам.
 
 ## Запуск
 
@@ -10,23 +12,27 @@
 docker compose up -d --build
 ```
 
-Публичный WebSocket публикуется через reverse proxy:
+Публичный маршрут:
 
 ```text
 wss://voice.femboyhouse.ru/voice
 ```
 
+Контейнер слушает порт `8790` во внешней Docker-сети `matrix_default`. TLS и маршрут `/voice` обслуживает Caddy.
+
 ## Настройки
 
-Ограничения задаются в `docker-compose.yml`:
+Параметры находятся в `docker-compose.yml`.
 
-- `VOICE_ALLOWED_HOSTS`: разрешённые домены и IP Minecraft-серверов.
-- `VOICE_ALLOW_PORTS`: разрешённые UDP-порты.
-- `VOICE_MAX_CLIENTS`: максимальное число клиентов.
-- `VOICE_IDLE_TIMEOUT`: таймаут неактивного соединения в секундах.
-- `VOICE_MAX_FRAME`: максимальный размер WebSocket-кадра.
+| Переменная | Назначение |
+| --- | --- |
+| `VOICE_ALLOWED_HOSTS` | Разрешённые домены и IP Minecraft-серверов |
+| `VOICE_ALLOW_PORTS` | Разрешённые UDP-порты |
+| `VOICE_MAX_CLIENTS` | Максимальное число одновременных клиентов |
+| `VOICE_IDLE_TIMEOUT` | Таймаут неактивного соединения в секундах |
+| `VOICE_MAX_FRAME` | Максимальный размер WebSocket-кадра |
 
-Контейнер не публикует порт наружу напрямую и подключается к внешней Docker-сети `matrix_default`. Внешний TLS и маршрут `/voice` обслуживает Caddy.
+Relay не публикует порт `8790` напрямую в интернет. Внешний доступ идёт через Caddy.
 
 ## Проверка
 
@@ -34,3 +40,7 @@ wss://voice.femboyhouse.ru/voice
 docker compose ps
 docker compose logs --tail=100 voice-relay
 ```
+
+## Лицензия
+
+MIT. Подробности находятся в [`../LICENSE`](../LICENSE).

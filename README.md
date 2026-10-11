@@ -1,42 +1,53 @@
-# Euph-VBridge
+<div align="center">
+  <img src="client/icon.png" alt="Euph-VBridge" width="180">
+  <h1>Euph-VBridge</h1>
+  <p>Клиентский мост Plasmo Voice для Euphorium</p>
+  <p>
+    <a href="https://github.com/Vakaefy/euph-vbridge/actions/workflows/build.yml"><img src="https://github.com/Vakaefy/euph-vbridge/actions/workflows/build.yml/badge.svg" alt="Build"></a>
+    <img src="https://img.shields.io/badge/version-1.0.0-7c5cff" alt="Version 1.0.0">
+    <img src="https://img.shields.io/badge/license-MIT-7c5cff" alt="MIT license">
+  </p>
+</div>
 
-Связка из клиентского аддона Plasmo Voice и WebSocket-релея для голосового трафика Euphorium.
+Euph-VBridge помогает Plasmo Voice подключаться к Euphorium через WebSocket-релей. На других серверах клиент работает как обычно. Если релей недоступен, соединение возвращается к прямому UDP.
 
-```text
-Euph-VBridge
-├── client/   Minecraft-аддон для Plasmo Voice
-└── relay/    Серверный UDP-over-WebSocket relay
-```
+## Состав проекта
 
-## Как это работает
+| Каталог | Что внутри |
+| --- | --- |
+| [`client/`](client) | Minecraft-аддон `Euph-VBridge` версии `1.0.0` |
+| [`relay/`](relay) | Серверный UDP-over-WebSocket relay |
 
-Клиент переключает только адреса Euphorium на WebSocket-релей `voice.femboyhouse.ru`. Остальные серверы не затрагиваются. При недоступности релея клиент возвращается к прямому UDP-подключению.
+## Клиент
 
-## Проекты
+Установите Plasmo Voice, скачайте `euph-vbridge-1.0.0.jar` и положите его в папку `mods`. Аддон работает на клиентской стороне и собирается одним JAR для Fabric и NeoForge.
 
-- [`client/`](client): аддон `Euph-VBridge` версии `1.0.0`.
-- [`relay/`](relay): Docker-сервис `voice-relay` с allowlist адресов Euphorium.
-
-## Быстрый старт
+Сборка:
 
 ```bash
 cd client
 ./gradlew build
 ```
 
-Готовый JAR появится в `client/build/libs/euph-vbridge-1.0.0.jar`.
+Готовый файл появится в `client/build/libs/euph-vbridge-1.0.0.jar`.
 
-Для запуска релея:
+## Relay
+
+Публичный маршрут релея:
+
+```text
+wss://voice.femboyhouse.ru/voice
+```
+
+Локальный запуск:
 
 ```bash
 cd relay
 docker compose up -d --build
 ```
 
-## Публикация
-
-Инструкция находится в [`docs/PUBLISHING.md`](docs/PUBLISHING.md).
+Настройки и команды проверки собраны в [`relay/README.md`](relay/README.md).
 
 ## Лицензия
 
-MIT.
+MIT. Подробности находятся в [`LICENSE`](LICENSE).
