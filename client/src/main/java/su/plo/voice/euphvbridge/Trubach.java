@@ -46,6 +46,11 @@ final class Trubach implements UdpClient {
                     this.mostik = null;
                     return;
                 }
+                if (closed || nomer != pokolenie.get()) {
+                    this.mostik = null;
+                    provodnik.zamri();
+                    return;
+                }
 
                 vnutri.connect("127.0.0.1", provodnik.kakoyPort());
             } catch (Exception e) {

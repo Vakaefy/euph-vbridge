@@ -130,7 +130,9 @@ final class Provodnik {
     }
 
     private void otprav(WebSocket ws, byte[] paket) {
-        if (umer || vOchere.incrementAndGet() > LIMIT_OCHEREDI) {
+        if (umer) return;
+
+        if (vOchere.incrementAndGet() > LIMIT_OCHEREDI) {
             vOchere.decrementAndGet();
             return;
         }
